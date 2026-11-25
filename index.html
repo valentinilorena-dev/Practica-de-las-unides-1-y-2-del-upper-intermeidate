@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English File · Units 1–2 Grammar Review</title>
+<style>
+:root{font:17px/1.5 system-ui,sans-serif;color:#17263a;background:#f3f6fa}*{box-sizing:border-box}body{margin:0}main{max-width:850px;margin:auto;padding:32px 18px 60px}h1{font-size:clamp(1.8rem,5vw,2.7rem);letter-spacing:-.045em;line-height:1.12;margin:0}h2{margin:0 0 12px;font-size:1.35rem}p{margin:0 0 12px}.intro{margin-top:10px;color:#46566b}label{font-weight:650}select,button{font:inherit;border:1px solid #8192a8;border-radius:8px;color:inherit;background:white;padding:9px 13px}button{cursor:pointer}button:disabled{cursor:default;opacity:.48}button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #1765aa;outline-offset:3px}select{max-width:100%;display:block;margin:5px 0 13px}.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.card{margin:18px 0;background:white;border:1px solid #ced9e5;border-radius:16px;padding:clamp(16px,4vw,30px)}.meta{font-size:.91rem;color:#46566b;margin-bottom:12px}progress{display:block;width:100%;margin-top:7px;accent-color:#176160}#prompt{font-weight:650;font-size:1.13rem}.answer{display:block;width:100%;text-align:left;margin:9px 0;min-height:46px}.answer:hover:not(:disabled){background:#eef5ff}.answer:disabled{opacity:1}.answer.right{border-color:#147052;background:#e7f6ee;color:#143f32}.answer.wrong{border-color:#a24337;background:#fff0eb;color:#67291d}#feedback:not(:empty){background:#f3f7fc;border-radius:9px;margin:14px 0;padding:12px}#next{background:#16487b;color:white;border-color:#16487b}summary{cursor:pointer;font-weight:700}.key li{margin:9px 0}#result:focus,#prompt:focus{outline:none}
+</style>
+</head>
+<body>
+<main>
+<h1>Units 1–2 Grammar Review</h1>
+<p class="intro">Choose one answer. Read the feedback, then move on at your own pace.</p>
+<label for="topics">Grammar topic</label>
+<select id="topics"></select>
+<div class="bar"><span id="total" aria-live="polite"></span></div>
+<section class="card" aria-label="Practice question">
+<div id="progressLabel" class="meta"></div>
+<div id="practice">
+<p id="prompt" tabindex="-1"></p>
+<div id="options"></div>
+<div id="feedback" role="status"></div>
+</div>
+<div id="result" tabindex="-1" hidden></div>
+<div class="bar">
+<button id="prev" type="button">Previous</button>
+<button id="next" type="button">Next</button>
+<button id="retry" type="button" hidden>Retry this topic</button>
+</div>
+</section>
+<details id="key"><summary>Answer key</summary><div id="keyItems"></div></details>
+</main>
+<script>
+const sections = [{"title": "1A · Direct and indirect questions", "items": [{"prompt": "Her grandparents paid for the dress. — Who ___ it?", "choices": ["paid for", "did pay for", "did paid for"], "order": [0, 1, 2], "explanation": "Who is the subject, so the neutral question uses paid without did."}, {"prompt": "That woman over there? I think she’s Claire’s cousin. — Do you know ___ over there?", "choices": ["who that woman is", "who is that woman", "who does that woman be"], "order": [1, 2, 0], "explanation": "Use statement order in an indirect question."}, {"prompt": "On an African safari, I think. — Where ___ on their honeymoon?", "choices": ["are they going", "they are going", "do they going"], "order": [1, 2, 0], "explanation": "A direct question puts are before they."}, {"prompt": "Three weeks! — How ___ going ___?", "choices": ["long are they / for", "long they are / for", "long did they / for"], "order": [2, 1, 0], "explanation": "Use How long + are + they + going + for."}, {"prompt": "Nobody. He came on his own. — Who ___ Tony ___?", "choices": ["did / come with", "did / came with", "does / came with"], "order": [2, 1, 0], "explanation": "Use did + base form come. With goes at the end."}, {"prompt": "His girlfriend left him last month. — Why ___ him?", "choices": ["did she leave", "she did leave", "did she left"], "order": [0, 2, 1], "explanation": "Use leave after did."}, {"prompt": "For about a year, I think. — ___ each other?", "choices": ["How long have Matt and Claire known", "How long Matt and Claire have known", "How long did Matt and Claire known"], "order": [0, 1, 2], "explanation": "Use the present perfect for a relationship continuing up to now."}, {"prompt": "They met on an online dating site. — Where ___?", "choices": ["did they meet", "they did meet", "did they met"], "order": [0, 2, 1], "explanation": "Use the base form meet after did."}, {"prompt": "I think Alex told me. — Who ___ that?", "choices": ["told you", "did you tell", "you told"], "order": [0, 1, 2], "explanation": "Who is the subject of told."}, {"prompt": "Where are the toilets? → Could you tell me ___?", "choices": ["where the toilets are", "where are the toilets", "where do the toilets be"], "order": [2, 0, 1], "explanation": "Keep the subject before the verb in the embedded question."}, {"prompt": "Why didn’t Sarah come to the wedding? → Do you know ___?", "choices": ["why Sarah didn’t come to the wedding", "why didn’t Sarah come to the wedding", "why Sarah didn’t came to the wedding"], "order": [0, 2, 1], "explanation": "Sarah goes before didn’t, and come stays in the base form."}, {"prompt": "Is that tall woman over there Claire’s mother? → Do you know ___?", "choices": ["if that tall woman over there is Claire’s mother", "is that tall woman over there Claire’s mother", "if is that tall woman over there Claire’s mother"], "order": [0, 2, 1], "explanation": "Introduce an embedded yes/no question with if or whether."}, {"prompt": "What does Molly’s husband do? → Do you remember ___?", "choices": ["what Molly’s husband does", "what does Molly’s husband do", "what Molly’s husband do"], "order": [1, 2, 0], "explanation": "Use statement order and third-person does as the main verb."}, {"prompt": "Can I get a taxi after midnight? → Do you have any idea ___?", "choices": ["if I can get a taxi after midnight", "if can I get a taxi after midnight", "can I get a taxi after midnight"], "order": [2, 0, 1], "explanation": "Use if + subject + modal."}, {"prompt": "Did Claire’s sister get married here? → Do you remember ___?", "choices": ["whether Claire’s sister got married here", "whether did Claire’s sister get married here", "whether Claire’s sister get married here"], "order": [0, 1, 2], "explanation": "Without did, the past tense appears in got."}, {"prompt": "Will they be happy? → Do you think ___?", "choices": ["they’ll be happy", "will they be happy", "they’ll happy"], "order": [1, 2, 0], "explanation": "Use subject + will + be."}, {"prompt": "Where did they put our coats? → Do you know ___?", "choices": ["where they put our coats", "where did they put our coats", "where they did put our coats"], "order": [0, 2, 1], "explanation": "Use statement order. The past form of put is also put."}]}, {"title": "1B · Auxiliary verbs", "items": [{"prompt": "They say it’s a good company to work for, ___ they?", "choices": ["don’t", "doesn’t", "do"], "order": [0, 1, 2], "explanation": "They say is affirmative, so the question tag uses negative don’t."}, {"prompt": "Yes, they ___ say that.", "choices": ["do", "are", "don’t"], "order": [2, 0, 1], "explanation": "Affirmative do emphasises say."}, {"prompt": "That’s a Greek name, ___ it?", "choices": ["isn’t", "does", "is"], "order": [2, 0, 1], "explanation": "That’s means that is, so the tag is isn’t it."}, {"prompt": "I’ve been living in New York for the past two years. — ___ you?", "choices": ["Have", "Are", "Do"], "order": [1, 2, 0], "explanation": "The reply echoes have in I’ve been living."}, {"prompt": "You’re a bit nervous, ___ you?", "choices": ["aren’t", "don’t", "are"], "order": [0, 1, 2], "explanation": "You’re is affirmative and uses be, so the tag is aren’t you."}, {"prompt": "I ___ get nervous before exams, but not interviews.", "choices": ["do", "am", "will"], "order": [2, 0, 1], "explanation": "Do emphasises a present simple statement."}, {"prompt": "My interview’s at 2.45. — ___ it? Mine’s at 3 o’clock.", "choices": ["Is", "Has", "Does"], "order": [0, 2, 1], "explanation": "Interview’s means interview is."}, {"prompt": "We won’t have to wait much longer, ___ we?", "choices": ["will", "have", "do"], "order": [2, 1, 0], "explanation": "The affirmative tag for won’t is will we."}, {"prompt": "I’m not hungry. — Neither ___ I.", "choices": ["am", "do", "have"], "order": [2, 1, 0], "explanation": "Neither + am + I agrees with a negative statement using be."}, {"prompt": "I’m staying at the Hotel Europe. — Ah, so ___ I.", "choices": ["am", "do", "have"], "order": [2, 0, 1], "explanation": "So + am + I agrees with a positive statement using be."}, {"prompt": "The rooms aren’t very nice, ___ they?", "choices": ["are", "aren’t", "do"], "order": [0, 2, 1], "explanation": "A negative statement takes a positive tag here."}, {"prompt": "The rooms aren’t very nice. But I ___ like the restaurant.", "choices": ["do", "am", "have"], "order": [0, 2, 1], "explanation": "Do emphasises like and marks the speaker’s positive opinion."}, {"prompt": "I had a good meal there last night. — ___ you?", "choices": ["Did", "Had", "Were"], "order": [0, 1, 2], "explanation": "Had is a past simple main verb here, so the response uses did."}, {"prompt": "Didn’t you like your job? — Oh, I ___ like the job, but I couldn’t stand my boss!", "choices": ["did", "was", "have"], "order": [2, 1, 0], "explanation": "Did emphasises the past simple verb like."}, {"prompt": "I couldn’t stand my boss! — ___ you? I get on with my boss.", "choices": ["Couldn’t", "Didn’t", "Weren’t"], "order": [1, 0, 2], "explanation": "Echo the negative modal couldn’t to show interest or surprise."}, {"prompt": "I think I need a new challenge. — So ___ I.", "choices": ["do", "am", "have"], "order": [0, 2, 1], "explanation": "Use so + do + I to agree with the present simple."}, {"prompt": "We can compare notes, ___ we?", "choices": ["can’t", "don’t", "can"], "order": [0, 1, 2], "explanation": "Repeat the modal can in its negative form."}]}, {"title": "1B · The… the… + comparatives", "items": [{"prompt": "The more dangerous the sport, …", "choices": ["the more I enjoy it.", "the more I enjoy.", "the most I enjoy it."], "order": [2, 1, 0], "explanation": "Use the more + subject + verb for the second comparative clause."}, {"prompt": "The longer I waited, …", "choices": ["the angrier I got.", "the angrier did I get.", "the angriest I got."], "order": [1, 2, 0], "explanation": "Use the comparative angrier and statement order."}, {"prompt": "The more hours you do in this job, …", "choices": ["the more you earn.", "the most you earn.", "more you earn."], "order": [0, 2, 1], "explanation": "Each half begins with the."}, {"prompt": "The younger you are, …", "choices": ["the easier it is to learn something.", "the easiest it is to learn something.", "the easier is it to learn something."], "order": [2, 0, 1], "explanation": "Use easier + it is."}, {"prompt": "The older you are, …", "choices": ["the harder it is to make new friends.", "the hardest it is to make new friends.", "harder it is to make new friends."], "order": [1, 0, 2], "explanation": "Use the + comparative harder."}, {"prompt": "The later we leave, …", "choices": ["the more traffic there will be.", "the more traffic will there be.", "the most traffic there will be."], "order": [0, 2, 1], "explanation": "The second clause keeps statement order."}, {"prompt": "The longer I stay in bed, …", "choices": ["the worse I feel.", "the worst I feel.", "the more worse I feel."], "order": [1, 0, 2], "explanation": "Worse is already the comparative of bad."}, {"prompt": "The faster you drive, …", "choices": ["the more likely you are to have an accident.", "the more likely are you to have an accident.", "the most likely you are to have an accident."], "order": [1, 0, 2], "explanation": "Use the more likely + you are."}, {"prompt": "If we start soon we’ll finish soon.", "choices": ["The sooner we start, the sooner we’ll finish.", "The soonest we start, the sooner we’ll finish.", "The sooner we start, sooner we’ll finish."], "order": [0, 2, 1], "explanation": "Use the sooner in both clauses."}, {"prompt": "If a car is big it uses a lot of petrol.", "choices": ["The bigger a car is, the more petrol it uses.", "The bigger is a car, the more petrol it uses.", "The biggest a car is, the more petrol it uses."], "order": [2, 1, 0], "explanation": "Use bigger and more petrol, with statement order."}, {"prompt": "When you get old you become wise.", "choices": ["The older you get, the wiser you become.", "The older you get, the more wiser you become.", "The oldest you get, the wiser you become."], "order": [0, 2, 1], "explanation": "Older and wiser are both comparatives."}, {"prompt": "If people have a lot of things, they want more.", "choices": ["The more things people have, the more they want.", "The most things people have, the more they want.", "The more things people have, the more do they want."], "order": [1, 0, 2], "explanation": "Use the more in both halves and statement order."}, {"prompt": "If the weather is hot you need to drink more.", "choices": ["The hotter the weather is, the more you need to drink.", "The hottest the weather is, the more you need to drink.", "The hotter the weather is, more you need to drink."], "order": [0, 2, 1], "explanation": "Hotter is the comparative of hot."}, {"prompt": "When you know her more you like her less.", "choices": ["The better you know her, the less you like her.", "The best you know her, the less you like her.", "The better you know her, less you like her."], "order": [0, 1, 2], "explanation": "Know someone better and like someone less express the two changes."}, {"prompt": "If you cook it slowly, it’ll taste good.", "choices": ["The more slowly you cook it, the better it’ll taste.", "The more slowly you cook it, the best it’ll taste.", "The most slowly you cook it, the better it’ll taste."], "order": [1, 2, 0], "explanation": "More slowly and better are the comparative forms here."}, {"prompt": "If we do a lot of work now, we’ll have less to do tomorrow.", "choices": ["The more work we do now, the less we’ll have to do tomorrow.", "The most work we do now, the less we’ll have to do tomorrow.", "The more work do we do now, the less we’ll have to do tomorrow."], "order": [0, 2, 1], "explanation": "Use more and less with statement order."}, {"prompt": "The more you practise your English, …", "choices": ["the better you will get.", "the best you will get.", "better you will get."], "order": [0, 1, 2], "explanation": "Use the + better."}, {"prompt": "The sooner I finish these exercises, …", "choices": ["the sooner I can take a break.", "the soonest I can take a break.", "sooner I can take a break."], "order": [1, 0, 2], "explanation": "The second clause also needs the + comparative."}, {"prompt": "The more exercise you do, …", "choices": ["the fitter you’ll get.", "the fittest you’ll get.", "the more fitter you’ll get."], "order": [2, 0, 1], "explanation": "Fitter is the comparative of fit."}, {"prompt": "The colder the weather is, …", "choices": ["the more layers I wear.", "more layers I wear.", "the most layers I wear."], "order": [0, 2, 1], "explanation": "Use the more for the increasing number of layers."}, {"prompt": "The more free time I have, …", "choices": ["the more books I read.", "the most books I read.", "more books I read."], "order": [1, 2, 0], "explanation": "Use the more in both parts."}]}, {"title": "2A · Present perfect simple and continuous", "items": [{"prompt": "For about a week now I ___ quite dizzy. I even thought I was going to faint once or twice. (feel)", "choices": ["have been feeling", "have been felt", "have feeling"], "order": [2, 0, 1], "explanation": "Have been feeling describes symptoms over a period continuing up to now."}, {"prompt": "I see. ___ normally? (you / eat)", "choices": ["Have you been eating", "Have you been eaten", "Have you eating"], "order": [2, 1, 0], "explanation": "Use have + subject + been + -ing."}, {"prompt": "I ___ much of an appetite recently. I’m just not hungry. (not have)", "choices": ["haven’t had", "haven’t have", "have had not"], "order": [1, 0, 2], "explanation": "Have an appetite describes a state here, so use haven’t had."}, {"prompt": "I know, but I ___ to eat anything recently. (not want)", "choices": ["haven’t wanted", "haven’t want", "haven’t been want"], "order": [2, 0, 1], "explanation": "Want is normally a state verb. Use have + past participle."}, {"prompt": "Any other symptoms? ___ headaches or any other aches or pains? (you / have)", "choices": ["Have you had", "Have you have", "Have you been have"], "order": [2, 0, 1], "explanation": "Have you had is correct. Have you been having also works for recurring symptoms."}, {"prompt": "I ___ my blood pressure three times this week. (take)", "choices": ["have taken", "have took", "have been taken"], "order": [2, 1, 0], "explanation": "The count three times points to the simple form. Taken is the past participle."}, {"prompt": "___ harder than usual? (you / work)", "choices": ["Have you been working", "Have you been worked", "Have you working"], "order": [2, 1, 0], "explanation": "The continuous highlights recent activity. Have you worked can also work here."}, {"prompt": "Things ___ incredibly busy recently. (be)", "choices": ["have been", "has been", "have be"], "order": [1, 2, 0], "explanation": "Things is plural, and been is the past participle of be."}, {"prompt": "I ___ home very late recently. (get)", "choices": ["have been getting", "have been got", "have getting"], "order": [2, 1, 0], "explanation": "The continuous highlights a repeated recent pattern."}, {"prompt": "I ___ very well for the last few days. (not sleep)", "choices": ["haven’t been sleeping", "haven’t been slept", "haven’t sleeping"], "order": [0, 2, 1], "explanation": "Use the continuous for an ongoing pattern. Haven’t slept also works here."}, {"prompt": "I think you ___. I want you to take a week off work. (overwork)", "choices": ["have been overworking", "have been overwork", "have overworking"], "order": [2, 0, 1], "explanation": "The continuous emphasises recent activity causing the current problem."}, {"prompt": "I ___ to head of department. (just / be promote)", "choices": ["have just been promoted", "have just being promoted", "have just been promote"], "order": [2, 0, 1], "explanation": "The present perfect passive uses have + been + past participle."}, {"prompt": "How long ___ your phone? (have)", "choices": ["have you had", "have you have", "have you been had"], "order": [0, 2, 1], "explanation": "Possession normally uses the simple form."}, {"prompt": "___ in an accident? (be injure)", "choices": ["Have you ever been injured", "Have you ever injured", "Have you ever been injure"], "order": [0, 1, 2], "explanation": "Use have + been + injured for the passive experience."}, {"prompt": "How long ___ to this school? (come)", "choices": ["have you been coming", "have you been came", "have you coming"], "order": [1, 2, 0], "explanation": "The continuous suits a repeated activity continuing up to now."}, {"prompt": "How many classes ___ this year? (miss)", "choices": ["have you missed", "have you miss", "have you been missed"], "order": [1, 2, 0], "explanation": "How many asks for a total, so use the simple form."}, {"prompt": "How long ___ in your current home? (live)", "choices": ["have you lived / have you been living", "have you been lived / have you living", "has you lived / have you live"], "order": [2, 1, 0], "explanation": "Both forms work with live in this context."}, {"prompt": "___ abroad? (study)", "choices": ["Have you ever studied", "Have you ever study", "Have you ever been studied"], "order": [0, 2, 1], "explanation": "Use the simple form for life experience."}]}, {"title": "2B · Adjectives as nouns and adjective order", "items": [{"prompt": "___ can apply to do these training courses free of charge.", "choices": ["Both “The unemployed” and “Unemployed people”", "Only “The unemployed”", "Only “Unemployed people”"], "order": [1, 2, 0], "explanation": "The unemployed and unemployed people can both refer to the group."}, {"prompt": "___ are very proud of their language and culture.", "choices": ["The French", "The Frenchs", "Frenchs"], "order": [0, 1, 2], "explanation": "The French refers to French people as a group."}, {"prompt": "There are a lot of ___ sleeping on the streets at night.", "choices": ["homeless people", "homeless", "homelesss"], "order": [1, 2, 0], "explanation": "After a lot of in this general statement, use homeless people."}, {"prompt": "I met a very nice ___ in Bath. She was really friendly.", "choices": ["Japanese girl", "Japanese", "the Japanese"], "order": [0, 1, 2], "explanation": "Japanese modifies girl when referring to this individual."}, {"prompt": "___ always live in the best part of a city.", "choices": ["Both “The rich” and “Rich people”", "Only “The rich”", "Only “Rich people”"], "order": [1, 2, 0], "explanation": "Both expressions refer to rich people generally."}, {"prompt": "___ are now famous for their world-class restaurants.", "choices": ["The Spanish", "Spanish", "The Spanishs"], "order": [0, 1, 2], "explanation": "Use the Spanish to refer to the people collectively."}, {"prompt": "‘Prime Minister, a lot of people say that your government just doesn’t care about ___.’", "choices": ["the poor", "poor", "the poors"], "order": [0, 1, 2], "explanation": "The poor refers to poor people as a group."}, {"prompt": "You should show more respect for ___.", "choices": ["Both “elderly people” and “the elderly”", "Only “elderly people”", "Only “the elderly”"], "order": [0, 2, 1], "explanation": "Both phrases can refer to the group generally."}, {"prompt": "___ invented paper.", "choices": ["The Chinese", "The Chineses", "Chineses"], "order": [0, 2, 1], "explanation": "The Chinese is the collective nationality expression."}, {"prompt": "___ are finding it very difficult to buy their first flat or house.", "choices": ["The young", "Young", "The youngs"], "order": [1, 2, 0], "explanation": "The young means young people as a group."}, {"prompt": "I’m looking for some ___ sandals. (high-heeled / smart)", "choices": ["smart high-heeled", "high-heeled smart", "smartly high-heeled"], "order": [1, 0, 2], "explanation": "Opinion comes before the style descriptor."}, {"prompt": "I saw a young man wearing a ___ jacket. (denim / blue)", "choices": ["blue denim", "denim blue", "blue denims"], "order": [0, 2, 1], "explanation": "Colour normally comes before material."}, {"prompt": "I can’t stand the ___ music he plays! (modern / awful)", "choices": ["awful modern", "modern awful", "awful modernly"], "order": [1, 2, 0], "explanation": "The intended order puts opinion before the style descriptor."}, {"prompt": "He has your ___ eyes. (dark / big)", "choices": ["big dark", "dark big", "bigly dark"], "order": [0, 1, 2], "explanation": "Size normally comes before colour."}, {"prompt": "I’ve lost a ___ scarf. (silk / long / black)", "choices": ["long black silk", "silk long black", "black silk long"], "order": [1, 2, 0], "explanation": "Length comes before colour, then material."}, {"prompt": "We used to live in a ___ house near the river. (wooden / beautiful / old)", "choices": ["beautiful old wooden", "old wooden beautiful", "wooden beautiful old"], "order": [2, 1, 0], "explanation": "Use opinion, then age, then material."}, {"prompt": "It’s a ___ case. (black / leather / small)", "choices": ["small black leather", "leather small black", "black leather small"], "order": [0, 1, 2], "explanation": "Use size, then colour, then material."}, {"prompt": "Simon’s been cooking me ___ curries. (delicious / Thai)", "choices": ["delicious Thai", "Thai delicious", "delicious Thailand"], "order": [0, 1, 2], "explanation": "Opinion normally comes before origin."}, {"prompt": "She has ___ hair. (brown / curly / short)", "choices": ["short curly brown", "brown curly short", "curly brown short"], "order": [2, 0, 1], "explanation": "Use length, then shape or texture, then colour."}, {"prompt": "I’m going to wear my ___ shirt to the party. (new / striped)", "choices": ["new striped", "striped new", "newly striped"], "order": [2, 0, 1], "explanation": "Age normally comes before pattern."}, {"prompt": "I have a ___ bag that I bought in Italy last summer. (lovely / leather / brown)", "choices": ["lovely brown leather", "brown leather lovely", "leather lovely brown"], "order": [1, 0, 2], "explanation": "Use opinion, then colour, then material."}]}];
+const get = id => document.getElementById(id);
+const topics = get('topics');
+const progressLabel = get('progressLabel');
+const prompt = get('prompt');
+const feedback = get('feedback');
+const options = get('options');
+const result = get('result');
+const prev = get('prev');
+const next = get('next');
+const retry = get('retry');
+const answers = sections.map(section => section.items.map(() => null));
+const positions = sections.map(() => 0);
+let topic = 0;
+let position = 0;
+const allItems = sections.reduce((sum, section) => sum + section.items.length, 0);
+
+function tally(sectionIndex) {
+  const responses = answers[sectionIndex];
+  return {
+    answered: responses.filter(answer => answer !== null).length,
+    correct: responses.filter(answer => answer === 0).length
+  };
+}
+
+function render(focus = false) {
+  const section = sections[topic];
+  const length = section.items.length;
+  const completed = position === length;
+  const { answered, correct } = tally(topic);
+  get('total').textContent = answers.flat().filter(answer => answer !== null).length + ' / ' + allItems + ' answered overall';
+  progressLabel.textContent = (completed ? 'Topic complete' : 'Question ' + (position + 1) + ' of ' + length) + ' · ' + answered + '/' + length + ' answered';
+  const progress = document.createElement('progress');
+  progress.max = length;
+  progress.value = answered;
+  progress.setAttribute('aria-label','Questions answered in this topic');
+  progressLabel.append(progress);
+  get('practice').hidden = completed;
+  result.hidden = !completed;
+  retry.hidden = !completed;
+  prev.disabled = position === 0;
+  if (completed) {
+    result.textContent = correct + ' / ' + length + ' correct on your first try.';
+    next.textContent = 'Next topic';
+    next.hidden = topic === sections.length - 1;
+    next.disabled = false;
+    if (focus) result.focus();
+    return;
+  }
+
+  const item = section.items[position];
+  const picked = answers[topic][position];
+  prompt.textContent = item.prompt;
+  options.replaceChildren();
+  feedback.replaceChildren();
+  next.hidden = false;
+  next.disabled = picked === null;
+  next.textContent = position === length - 1 ? 'See result' : 'Next';
+
+  item.order.forEach((choice, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'answer';
+    button.textContent = String.fromCharCode(65 + index) + '. ' + item.choices[choice];
+    button.disabled = picked !== null;
+    if (picked !== null && choice === 0) {
+      button.classList.add('right');
+      button.textContent += ' ✓ Correct answer';
+    }
+    if (picked === choice && choice !== 0) {
+      button.classList.add('wrong');
+      button.textContent += ' · Your answer';
+    }
+    button.addEventListener('click', () => {
+      answers[topic][position] = choice;
+      render();
+      next.focus();
+    });
+    options.append(button);
+  });
+
+  if (picked !== null) {
+    const heading = document.createElement('strong');
+    heading.textContent = picked === 0 ? 'Correct. ' : 'Correct answer — ' + item.choices[0] + '. ';
+    feedback.append(heading, item.explanation);
+  }
+  if (focus) prompt.focus();
+}
+
+function selectTopic(index) {
+  positions[topic] = position;
+  topic = index;
+  position = positions[index];
+  topics.value = String(index);
+  render();
+}
+
+sections.forEach((section, index) => {
+  topics.add(new Option(section.title, index));
+  const heading = document.createElement('h2');
+  heading.textContent = section.title;
+  const list = document.createElement('ol');
+  list.className = 'key';
+  section.items.forEach(item => {
+    const row = document.createElement('li');
+    const answer = document.createElement('strong');
+    answer.textContent = item.choices[0];
+    row.append(item.prompt + ' → ', answer);
+    list.append(row);
+  });
+  get('keyItems').append(heading,list);
+});
+
+topics.addEventListener('change', () => selectTopic(Number(topics.value)));
+prev.addEventListener('click', () => { position -= 1; render(true); });
+next.addEventListener('click', () => {
+  if (position === sections[topic].items.length) {
+    selectTopic(topic + 1);
+    (result.hidden ? prompt : result).focus();
+  } else {
+    position += 1;
+    render(true);
+  }
+});
+retry.addEventListener('click', () => {
+  answers[topic].fill(null);
+  position = 0;
+  render(true);
+});
+render();
+</script>
+</body>
+</html>
